@@ -1,6 +1,7 @@
 from operator import contains
 import requests
 from decouple import config
+from json import dump
 
 # Get auth key from .env file
 auth_key = config("AUTH_KEY", default = None)
@@ -23,7 +24,7 @@ def get_movie_details(movie_id):
     r= requests.get(url = URL)
     # Return only wanted properties, i.e.  "original_title", "genre", "release_date"
     movie_details_specific = {key:value for key, value in r.json().items() if key in wanted_properties}
-    # Returm final dictionary containing both specific requests as the dictor and actors
+    # Returm final dictionary containing both specific requests as well as the director of the movie and actors
     return get_credits(movie_id, movie_details_specific)
     
 
@@ -54,15 +55,26 @@ def get_credits(movie_id, movie_dictionary):
     return movie_dictionary
 
 
+def structured_top_daily_movies():
+    # Returns structured output for todays top movies in wanted format.
+    # Wanted format includes release date, genre, original title, actors and directors
+    
+    daily_movies_data = get_top_daily_movies()
+    movie_results = daily_movies_data["results"]
+
+    # Get extended details of each movie - contains release date, genre, original title. Also fetches actors and directors
+    extended_movies_results = {movie["id"]: get_movie_details(movie["id"]) for movie in movie_results}
+
+    return extended_movies_results
 
 
-daily_movies_data = get_top_daily_movies()
-movie_results = daily_movies_data["results"]
+def save_as_json(data):
+    with open("output.json", "w+", encoding="utf-8") as f:
+        dump(data,f)
 
 
-extended_movies_results = {movie["id"]: get_movie_details(movie["id"]) for movie in movie_results}
-
-print(extended_movies_results[453395])
-
+if __name__ == "__main__":
+        data = structured_top_daily_movies()
+        #save_as_json(data)
 
 
