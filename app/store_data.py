@@ -12,7 +12,7 @@ db_pass = config("POSTGRES_PASSWORD", default = None)
 db = config("POSTGRES_DB", default = None)
 host= config("HOST", default = None)
 
-
+#init engine
 engine = create_engine(f"postgresql://{db_user}:{db_pass}@{host}:5432/{db}")
 
 
