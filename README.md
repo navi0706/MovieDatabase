@@ -21,13 +21,20 @@ Other env variables are tied to PostgreSQL server.
 
 
 ## Example of database
-![alt text](https://github.com/navi0706/MovieDatabase/blob/master//PostgreSQL_example.png?raw=true)
-
 index - Refers to movie_id
+
 genres - Contains a list of genres for each movie, some movies have multiple genres
+
 original_title - Refers to the original title of the movie
+
 release_date - Date when movie was release in format "yyyy-MM-dd"
+
 reviews - Using sentiment analysis each review is labled as positive, neutral or negative. Some films have multiple reviews while
 some have none
+
 actors - list of all actors present in the movie
+
 directors - main director for each movie
+
+
+![alt text](https://github.com/navi0706/MovieDatabase/blob/master//PostgreSQL_example.png?raw=true)
