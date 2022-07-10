@@ -61,9 +61,10 @@ class SentimentAnalysisNLTK:
 
         scores = sia.polarity_scores(preprocessed_sentence)
         compound_score = scores["compound"]
+        print(compound_score)
         if compound_score >= 0.05:
             return "Positive"
-        elif compound_score <= 0.05:
+        elif compound_score <= -0.05:
             return "Negative"
         else:
             return "Neutral"

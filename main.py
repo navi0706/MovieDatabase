@@ -1,4 +1,4 @@
-from operator import contains
+from re import A
 import requests
 from decouple import config
 from json import dump
@@ -41,7 +41,6 @@ class MoviesDatabase:
         return self.get_movie_credits(movie_id, movie_details_specific)
         
 
-
     def get_movie_credits(self, movie_id, movie_dictionary):
         # Get credits of a movie by id
 
@@ -76,10 +75,9 @@ class MoviesDatabase:
         #print(len(data["results"]))
 
         # Add reviews for each movie
-        print(movie_id)
 
-        structured_reviews = [sentiment_analysis.sentiment_analysis_pipeline(x["content"])
-                             for x in review_data["results"]]
+        structured_reviews = ", ".join( sentiment_analysis.sentiment_analysis_pipeline(x["content"])
+                             for x in review_data["results"])
         return structured_reviews
 
 
@@ -97,13 +95,26 @@ def structured_daily_movies():
 
 
 def save_as_json(data):
+    # Saves dictionary as JSON
     with open("output.json", "w+", encoding="utf-8") as f:
         dump(data,f)
 
 def dataframe(custom_dictionary):
-    return pd.DataFrame.from_dict(custom_dictionary)
+    return pd.DataFrame.from_dict(custom_dictionary, orient="index")
+
+
+def making_data_nice(dict):
+    # Making a change so that values inside the list are joined.
+    # NOTE this can be done more efficiently when originally getting the data
+
+    for movie_id, movie_details in dict.items():
+        movie_details["genres"] = ", ".join(genre_name["name"] for genre_name in movie_details["genres"])
+        movie_details["actors"] = ", ".join(actor for actor in movie_details["actors"])
+        movie_details["directors"] = ", ".join(director for director in movie_details["directors"])
+    return dict
 
 if __name__ == "__main__":
     daily_movie_results=structured_daily_movies()
-    save_as_json(daily_movie_results)
+    daily_movie_results = making_data_nice(daily_movie_results)
+    #save_as_json(daily_movie_results)
     print(dataframe(daily_movie_results))
