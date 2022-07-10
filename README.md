@@ -14,7 +14,7 @@ Run inside project's directory --> docker build -t movie_api .
 
 This will build movie_api image that is neccessary for project to be ran.
 
-After that run docker compose command --> docker compose up
+After that, run docker compose command --> docker compose up
 
 ## Notes
 
