@@ -35,8 +35,8 @@ class MoviesDatabase:
     def get_movie_details(self, movie_id):
         # Get details of a movie by id
 
-        URL= f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={auth_key}&language=en-US"
-        r= requests.get(url = URL)
+        URL = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={auth_key}&language=en-US"
+        r = requests.get(url = URL)
         # Return only wanted properties, i.e.  "original_title", "genre", "release_date"
         movie_details_specific = {key:value for key, value in r.json().items() if key in wanted_properties}
 
@@ -54,19 +54,19 @@ class MoviesDatabase:
         movie_dictionary["directors"] = []
 
         URL = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={auth_key}&language=en-US"
-        r= requests.get(url = URL)
+        r = requests.get(url = URL)
         credits_data = r.json()
 
         # Get directors and actors, NOTE - can be more efficient with list comprehension
         
-        for key, value in credits_data.items():
+        for key, values in credits_data.items():
             if key != "id":
-                for x in value:
-                    if x["known_for_department"] == "Acting":
-                        movie_dictionary["actors"].append(x["name"])
-                    elif "job" in x:
-                        if x["job"] == "Director":
-                            movie_dictionary["directors"].append(x["name"])
+                for credit_value in values:
+                    if credit_value["known_for_department"] == "Acting":
+                        movie_dictionary["actors"].append(credit_value["name"])
+                    elif "job" in credit_value:
+                        if credit_value["job"] == "Director":
+                            movie_dictionary["directors"].append(credit_value["name"])
         
         # first value cointains actors the other list contains directors
         return movie_dictionary
@@ -75,14 +75,14 @@ class MoviesDatabase:
         # Get user reviews of a movie, gets movie by movie_id
 
         URL = f"https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key={auth_key}&language=en-US&page=1"
-        r= requests.get(url = URL)
+        r = requests.get(url = URL)
         review_data = r.json()
         #print(len(data["results"]))
 
         # Add reviews for each movie
 
-        structured_reviews = ", ".join( sentiment_analysis.sentiment_analysis_pipeline(x["content"])
-                             for x in review_data["results"])
+        structured_reviews = ", ".join( sentiment_analysis.sentiment_analysis_pipeline(movie_review["content"])
+                             for movie_review in review_data["results"])
         return structured_reviews
 
 
