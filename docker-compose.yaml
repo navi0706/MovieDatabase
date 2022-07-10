@@ -1,6 +1,7 @@
 services:
-
+  
   db:
+    #Hosts postgres db on port 5432
     image: postgres
     restart: always
     env_file:
@@ -9,12 +10,14 @@ services:
       - 5432:5432
 
   adminer:
+    #used for managing SQL database via web
     image: adminer
     restart: always
     ports:
       - 8080:8080
     
   app:
+    #on command runs script for getting and storing data
     image: movie_api
     env_file:
       - .env

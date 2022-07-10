@@ -17,8 +17,11 @@ wanted_properties = "original_title", "genres", "release_date"
 
 
 
+
 class MoviesDatabase:
-    
+
+    # NOTE possible improvement, run program in while loop and trigger program every 24h
+    # Currently program has to be started manually
 
     def get_top_daily_movies(self):
         # Fetches top movies on the first page for the current day
@@ -30,7 +33,7 @@ class MoviesDatabase:
 
             
     def get_movie_details(self, movie_id):
-        # Get details of a movie bv id
+        # Get details of a movie by id
 
         URL= f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={auth_key}&language=en-US"
         r= requests.get(url = URL)
