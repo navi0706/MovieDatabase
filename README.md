@@ -8,7 +8,9 @@ preform sentiment analysis and to store the results into a database.
 
 The whole project is ran in containers.
 In order to start the project it is necessary to build a docker image based on this project.
-For this copy this command inside project's directory via CLI --> docker build -t movie_api .
+Steps to install:
+
+Run inside project's directory --> docker build -t movie_api .
 
 This will build movie_api image that is neccessary for project to be ran.
 
