@@ -11,6 +11,7 @@ services:
 
   adminer:
     #used for managing SQL database via web
+    #https://www.adminer.org/
     image: adminer
     restart: always
     ports:
