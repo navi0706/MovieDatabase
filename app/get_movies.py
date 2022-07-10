@@ -3,9 +3,7 @@ from decouple import config
 from json import dump
 import pandas as pd
 
-
 from senitiment_analysis import SentimentAnalysisNLTK
-from store_data import store_dataframe
 
 # Get auth key from .env file, Init SentimentyAnalysis
 auth_key = config("AUTH_KEY", default = None)
@@ -116,5 +114,6 @@ def save_as_json(data):
 
 def to_dataframe(custom_dictionary):
     return pd.DataFrame.from_dict(custom_dictionary, orient="index")
+    
 
 
