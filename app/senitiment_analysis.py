@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import re
 import nltk
 
+from base_logger import logger
+
 # Import NLTK specific modules
 from nltk.corpus import stopwords 
 from nltk.stem import WordNetLemmatizer
@@ -21,9 +23,9 @@ class SentimentAnalysisNLTK:
 
     def sentiment_analysis_pipeline(self, review):
         # Pipeline for sentiment analysis
-
         preprocessed_review = self.review_preprocessing(review)
         classified_review = self.classify_sentence(preprocessed_review)
+        
         return classified_review
 
     

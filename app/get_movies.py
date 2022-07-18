@@ -3,7 +3,10 @@ from decouple import config
 from json import dump
 import pandas as pd
 
+
 from senitiment_analysis import SentimentAnalysisNLTK
+from base_logger import logger
+
 
 # Get auth key from .env file, Init SentimentyAnalysis
 auth_key = config("AUTH_KEY", default = None)
@@ -29,6 +32,9 @@ class MoviesDatabase:
         URL = f"https://api.themoviedb.org/3/movie/popular?api_key={auth_key}&language=en-US&page=1" 
         r= requests.get(url = URL)
         return r.json()
+
+        
+
 
 
             
@@ -103,10 +109,14 @@ def structured_daily_movies():
     # Gets structured daily movies with all necessary details
     
     daily_movies_data = movie_api.get_top_daily_movies()
+    logger.info("Fetched daily movies")
     movie_results = daily_movies_data["results"]
     # Get extended details of each movie - contains release date, genre, original title. Also fetches actors and directors
+    logger.info("Started sentiment analysis and structuring")
     extended_movies_results = {movie["id"]: movie_api.get_movie_details(movie["id"]) for movie in movie_results}
+    logger.info("Finished sentiment analysis")
     structured_movies_result = movie_api.making_data_nice(extended_movies_results)
+    logger.info("Finished structuring daily movies")
     return structured_movies_result
 
 

@@ -19,7 +19,7 @@ services:
     
   app:
     #on command runs script for getting and storing data
-    image: movie_api
+    image: movie_api_1_1_1
     env_file:
       - .env
     depends_on:

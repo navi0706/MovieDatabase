@@ -5,6 +5,7 @@ FROM python:3.10-slim-bullseye
 #Copy dependencies
 COPY app app
 COPY requirements.txt /app/requirements.txt
+COPY logging app/logging
 
 RUN apt-get update\
 && apt-get -y install libpq-dev gcc \
