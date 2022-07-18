@@ -23,10 +23,9 @@ class SentimentAnalysisNLTK:
 
     def sentiment_analysis_pipeline(self, review):
         # Pipeline for sentiment analysis
-        logger.info("Started sentiment analysis")
         preprocessed_review = self.review_preprocessing(review)
         classified_review = self.classify_sentence(preprocessed_review)
-        logger.info("Finished sentiment analysis")
+        
         return classified_review
 
     

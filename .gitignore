@@ -1,3 +1,5 @@
 .env
 app/__pycache__/
 venv/
+logging/*
+!logging/.gitkeep

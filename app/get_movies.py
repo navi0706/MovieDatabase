@@ -112,7 +112,9 @@ def structured_daily_movies():
     logger.info("Fetched daily movies")
     movie_results = daily_movies_data["results"]
     # Get extended details of each movie - contains release date, genre, original title. Also fetches actors and directors
+    logger.info("Started sentiment analysis and structuring")
     extended_movies_results = {movie["id"]: movie_api.get_movie_details(movie["id"]) for movie in movie_results}
+    logger.info("Finished sentiment analysis")
     structured_movies_result = movie_api.making_data_nice(extended_movies_results)
     logger.info("Finished structuring daily movies")
     return structured_movies_result

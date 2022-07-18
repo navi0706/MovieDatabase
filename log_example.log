@@ -1,0 +1,7 @@
+2022-07-18 19:01:17,830 - INFO - Started the program on - 2022-07-18
+2022-07-18 19:01:17,909 - INFO - Fetched daily movies
+2022-07-18 19:01:17,909 - INFO - Started sentiment analysis and structuring
+2022-07-18 19:01:22,463 - INFO - Finished sentiment analysis
+2022-07-18 19:01:22,463 - INFO - Finished structuring daily movies
+2022-07-18 19:01:22,577 - INFO - Pushed data to database
+2022-07-18 19:01:22,577 - INFO - Finished the program on - 2022-07-18
