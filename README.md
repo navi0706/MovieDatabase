@@ -41,3 +41,17 @@ directors - main director for each movie
 
 
 ![alt text](https://github.com/navi0706/MovieDatabase/blob/master//PostgreSQL_example.png?raw=true)
+
+## Working on features
+
+Checklist of things to be done --->
+
+Work in progress:
+    - logging
+
+To be done:
+    - improve dockerfile and docker compose
+    - reduce code complexity
+    - error handling
+    - refactor the code, dont repeat yourself
+    - multiple SQL tables as a solution
