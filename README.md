@@ -47,11 +47,11 @@ directors - main director for each movie
 Checklist of things to be done --->
 
 Work in progress:
-    - logging
+    - error handling
+    
 
 To be done:
     - improve dockerfile and docker compose
     - reduce code complexity
-    - error handling
     - refactor the code, dont repeat yourself
     - multiple SQL tables as a solution

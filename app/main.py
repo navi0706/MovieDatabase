@@ -1,9 +1,12 @@
+import sys
+import os
+import traceback
+import time
 # Import local functions and variables 
 from get_movies import structured_daily_movies, to_dataframe, save_as_json
 from store_data import store_dataframe
 from base_logger import logger, current_date
 
-import time
 
 
 
@@ -14,8 +17,17 @@ def main():
     df = to_dataframe(daily_movie_results)
     store_dataframe(df, current_date)
     logger.info(f"Finished the program on - {current_date}")
-    time.sleep(120)
 
-#INIT project
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        # TODO - make case specific error handling
+        # Currently this logs all the errors to the log file
+        # Gives output in terminal: Error type, file name and line
+        logger.error(traceback.format_exc())
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        filename = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        sys.exit(f"Exit with error - {exc_type} - {filename} - {exc_tb.tb_lineno}.\
+             Check logs for more information")
